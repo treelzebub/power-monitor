@@ -6,8 +6,8 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
-PIP_PATH=$(command -v pip)
-PYTHON3_PATH=$(command -v python3)
+PIP_PATH=$(which pip3 || which pip)
+PYTHON3_PATH=$(which python3)
 export PATH=$(dirname "$PIP_PATH"):$PATH
 export PATH=$(dirname "$PYTHON3_PATH"):$PATH
 
