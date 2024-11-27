@@ -50,13 +50,13 @@ def read_file(file_path):
 def get_battery_status():
   plugged = psutil.sensors_battery().power_plugged
   status = "plugged" if plugged else read_file(STATUS)
-  capacity = None
+  capacity = ""
 
   if not plugged:
     capacity = read_file(CAPACITY)
 
     try:
-      capacity = int(capacity) if capacity is not None else None
+      capacity = int(capacity) if capacity is not "" else ""
     except ValueError:
       log(f"Invalid battery capacity: {capacity}")
 
