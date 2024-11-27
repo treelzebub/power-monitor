@@ -6,6 +6,12 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
+export PATH="$HOME/.pyenv/bin:$PATH"
+if which pyenv > /dev/null; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+fi
+
 read -p "Set the path for log file (eg. /home/me/): " LOG_PATH
 read -p "Shutdown when the battery falls below what threshold: " CHARGE_THRESHOLD
 
@@ -14,16 +20,8 @@ touch config
 sed -i "s|^LOG_PATH=.*|LOG_PATH=$LOG_PATH|" "$CONFIG_FILE" || echo "LOG_PATH=$LOG_PATH" >> "$CONFIG_FILE"
 sed -i "s|^CHARGE_THRESHOLD=.*|CHARGE_THRESHOLD=$CHARGE_THRESHOLD|" "$CONFIG_FILE" || echo "CHARGE_THRESHOLD=$CHARGE_THRESHOLD" >> "$CONFIG_FILE"
 
-echo "Initializing pyenv..."
-
-export PATH="$HOME/.pyenv/bin:$PATH"
-if which pyenv > /dev/null; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
-
 echo "Installing dependencies..."
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 
 echo "Configuring Power Monitor service..."
 mkdir -p /etc/power_monitor/
