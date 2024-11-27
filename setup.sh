@@ -6,15 +6,6 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
-if which pyenv > /dev/null; then
-  export PATH="$HOME/.pyenv/bin:$PATH"
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-else
-  echo "Error: pyenv is not installed. Please install pyenv first."
-  exit 1
-fi
-
 PYTHON3_PATH=$(pyenv which python3)
 PIP_PATH=$(pyenv which pip)
 
@@ -22,6 +13,8 @@ if [ -z "$PYTHON3_PATH" ] || [ -z "$PIP_PATH" ]; then
   echo "python or pip not found. Bailing."
   exit 1
 fi
+
+export PATH=$PYTHON3_PATH:$PIP_PATH:$PATH
 
 read -p "Set the path for log file (eg. /home/me/): " LOG_PATH
 read -p "Shutdown when the battery falls below what threshold: " CHARGE_THRESHOLD
