@@ -43,9 +43,9 @@ def read_file(file_path):
   try:
     with open(file_path, "r") as file:
       return file.readline().strip()
-    except Exception as e:
-      log(f"Error reading {file_path}: {e}")
-      return None
+  except Exception as e:
+    log(f"Error reading {file_path}: {e}")
+    return None
 
 def get_battery_status():
   plugged = psutil.sensors_battery().power_plugged
