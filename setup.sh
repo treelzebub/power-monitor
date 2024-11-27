@@ -10,7 +10,7 @@ read -p "Set the path for log file (eg. /home/me/): " LOG_PATH
 
 echo "Available power supply paths:"
 ls -1 /sys/class/power_supply
-read -p "Set the path for your system's battery (eg. /sys/class/power_supply/): " BATTERY_PATH
+read -p "Set the path for your system's battery (eg. /sys/class/power_supply/battery0/): " BATTERY_PATH
 
 CONFIG_FILE="config"
 touch config
@@ -27,4 +27,4 @@ systemctl enable power_monitor.service
 systemctl start power_monitor.service
 
 echo "Power monitor is configured and running."
-echo "Logs will be available at: $LOG_PATH/power_monitor.log"
+echo "Logs will be available at:" $LOG_PATH "power_monitor.log"
