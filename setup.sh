@@ -21,7 +21,7 @@ sed -i "s|^LOG_PATH=.*|LOG_PATH=$LOG_PATH|" "$CONFIG_FILE" || echo "LOG_PATH=$LO
 sed -i "s|^CHARGE_THRESHOLD=.*|CHARGE_THRESHOLD=$CHARGE_THRESHOLD|" "$CONFIG_FILE" || echo "CHARGE_THRESHOLD=$CHARGE_THRESHOLD" >> "$CONFIG_FILE"
 
 echo "Installing dependencies..."
-python3 -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 
 echo "Configuring Power Monitor service..."
 mkdir -p /etc/power_monitor/
@@ -34,7 +34,8 @@ systemctl daemon-reload
 systemctl enable power_monitor.service
 systemctl start power_monitor.service
 
-if systemctl is-active --quiet power_monitor.service; then
+service_status=$(systemctl is-active power_monitor.service)
+if [[ "$service_status" == "active" ]]; then
   echo "Power monitor is configured and running."
   echo "Logs will be available at: ${LOG_PATH%/}/power_monitor.log"
   exit 0
