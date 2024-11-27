@@ -6,12 +6,10 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
-export PATH="$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH"
-if command -v pyenv > /dev/null; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
+PIP_PATH=$(command -v pip)
+PYTHON3_PATH=$(command -v python3)
+export PATH=$(dirname "$PIP_PATH"):$PATH
+export PATH=$(dirname "$PYTHON3_PATH"):$PATH
 
 if ! command -v pip > /dev/null; then
   echo "pip is not found in PATH. Bailing."
