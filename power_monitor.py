@@ -56,7 +56,7 @@ def get_battery_status():
     capacity = read_file(CAPACITY)
 
     try:
-      capacity = int(capacity) if capacity_raw is not None else None
+      capacity = int(capacity) if capacity is not None else None
     except ValueError:
       log(f"Invalid battery capacity: {capacity}")
 
