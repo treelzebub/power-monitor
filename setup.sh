@@ -6,13 +6,20 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
-PIP_PATH=$(which pip3 || which pip)
-PYTHON3_PATH=$(which python3)
-export PATH=$(dirname "$PIP_PATH"):$PATH
-export PATH=$(dirname "$PYTHON3_PATH"):$PATH
+if which pyenv > /dev/null; then
+  export PATH="$HOME/.pyenv/bin:$PATH"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+else
+  echo "Error: pyenv is not installed. Please install pyenv first."
+  exit 1
+fi
 
-if ! command -v pip > /dev/null; then
-  echo "pip is not found in PATH. Bailing."
+PYTHON3_PATH=$(pyenv which python3)
+PIP_PATH=$(pyenv which pip)
+
+if [ -z "$PYTHON3_PATH" ] || [ -z "$PIP_PATH" ]; then
+  echo "python or pip not found. Bailing."
   exit 1
 fi
 
