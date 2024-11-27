@@ -7,9 +7,10 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 export PATH="$HOME/.pyenv/bin:$PATH"
-if which pyenv > /dev/null; then
+if command -v pyenv > /dev/null; then
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
 
 read -p "Set the path for log file (eg. /home/me/): " LOG_PATH
@@ -31,8 +32,10 @@ cp power_monitor.py /usr/local/bin/
 chown root:root /usr/local/bin/power_monitor.py
 cp power_monitor.service /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable power_monitor.service
 systemctl start power_monitor.service
+systemctl enable power_monitor.service
+
+sleep 2
 
 service_status=$(systemctl is-active power_monitor.service)
 if [[ "$service_status" == "active" ]]; then
