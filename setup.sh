@@ -6,11 +6,16 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH"
 if command -v pyenv > /dev/null; then
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
+fi
+
+if ! command -v pip > /dev/null; then
+  echo "pip is not found in PATH. Bailing."
+  exit 1
 fi
 
 read -p "Set the path for log file (eg. /home/me/): " LOG_PATH
