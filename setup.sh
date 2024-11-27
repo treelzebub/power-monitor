@@ -6,7 +6,7 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.pyenv/bin/pyenv:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
