@@ -6,6 +6,10 @@ if [ "$(id -u)" -ne 0 ]; then
   exit
 fi
 
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
 PYTHON3_PATH=$(pyenv which python3)
 PIP_PATH=$(pyenv which pip)
 
