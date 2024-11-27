@@ -2,7 +2,7 @@
 A simple daemon for battery-operated linux boxes that polls the power status, and shuts down the machine if the battery falls below the defined threshold.
 
 ## Requirements:
-* python, pip, psutil
+* pyenv, pip, psutil
 
 ## Usage:
 1. Move the script to `/usr/local/bin/` and make it executable
