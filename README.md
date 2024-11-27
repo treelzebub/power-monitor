@@ -13,6 +13,6 @@ A simple daemon for battery-operated linux boxes that polls the power status, an
   sudo systemctl start battery_monitor.service
   sudo systemctl enable battery_monitor.service
   ```
-1. Open the `config` file and set the `LOG_FILE` and `BATTERY_PATH` variables
+1. Create a configuration file at `/etc/power_monitor/config` and set the `LOG_FILE` and `CHARGE_THRESHOLD` variables
 
 The `setup.sh` script is provided to perform the above steps.

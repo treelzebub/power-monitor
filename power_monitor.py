@@ -26,11 +26,11 @@ def read_config(file_path):
     return config
 
 POLL_INTERVAL = 600
-BATTERY_CHARGE_THRESHOLD = 20
 
-CONFIG = read_config('config')
+CONFIG = read_config('/etc/power_monitor/config')
 LOG_PATH = CONFIG.get('LOG_PATH')
 LOG = make_path(LOG_PATH, 'power_monitor.log')
+CHARGE_THRESHOLD = CONFIG.get('CHARGE_THRESHOLD')
 
 def log(message):
     timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -65,7 +65,7 @@ def main():
   while True:
     charge = get_battery_status()
 
-    if charge is not None and charge < BATTERY_CHARGE_THRESHOLD:
+    if charge is not None and charge < CHARGE_THRESHOLD:
       shutdown()
       break
         
