@@ -15,7 +15,7 @@ sed -i "s|^LOG_PATH=.*|LOG_PATH=$LOG_PATH|" "$CONFIG_FILE" || echo "LOG_PATH=$LO
 sed -i "s|^CHARGE_THRESHOLD=.*|CHARGE_THRESHOLD=$CHARGE_THRESHOLD|" "$CONFIG_FILE" || echo "CHARGE_THRESHOLD=$CHARGE_THRESHOLD" >> "$CONFIG_FILE"
 
 echo "Installing dependencies..."
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 
 echo "Configuring Power Monitor service..."
 mkdir -p /etc/power_monitor/
