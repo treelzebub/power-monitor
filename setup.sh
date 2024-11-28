@@ -2,23 +2,9 @@
 
 if [ "$(id -u)" -ne 0 ]; then
   echo "This script requires root. Running with sudo..."
-  sudo "$0" "$@"
+  sudo -E "$0" "$@"
   exit
 fi
-
-export PATH="$HOME/.pyenv/bin/pyenv:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-
-PYTHON3_PATH=$(pyenv which python3)
-PIP_PATH=$(pyenv which pip)
-
-if [ -z "$PYTHON3_PATH" ] || [ -z "$PIP_PATH" ]; then
-  echo "python or pip not found. Bailing."
-  exit 1
-fi
-
-export PATH=$PYTHON3_PATH:$PIP_PATH:$PATH
 
 read -p "Set the path for log file (eg. /home/me/): " LOG_PATH
 read -p "Shutdown when the battery falls below what threshold: " CHARGE_THRESHOLD
